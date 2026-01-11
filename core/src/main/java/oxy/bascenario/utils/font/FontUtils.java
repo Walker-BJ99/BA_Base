@@ -41,15 +41,22 @@ public class FontUtils {
 
     public static void loadFonts() {
         // Cache these font so I can use them dynamically later.
+
+        // Walker: These fonts seems is not suitable for Chinese (and other).
+        //         I will try My favorite font, HarmonyOS Sans.
         loadFont("NotoSansRegular", "/assets/base/fonts/NotoSans-Regular.ttf");
         loadFont("NotoSansSemiBold", "/assets/base/fonts/NotoSans-SemiBold.ttf");
         loadFont("NotoSansBold", "/assets/base/fonts/NotoSans-Bold.ttf");
 
+        loadFont("HarmonySansSCRegular", "/assets/base/fonts/HarmonyOS_Sans_SC_Regular.ttf");
+        loadFont("HarmonySansSCBold", "/assets/base/fonts/HarmonyOS_Sans_SC_Bold.ttf");
+        loadFont("HarmonySansSCThin", "/assets/base/fonts/HarmonyOS_Sans_SC_Thin.ttf");
+
         ImGui.getIO().setFontDefault(loadImFont("/assets/base/fonts/NotoSans-Regular.ttf", 17));
 
-        DEFAULT = NAME_TO_FONTS.get("NotoSansRegular");
-        BOLD = NAME_TO_FONTS.get("NotoSansBold");
-        SEMI_BOLD = NAME_TO_FONTS.get("NotoSansSemiBold");
+        DEFAULT = NAME_TO_FONTS.get("HarmonySansSCRegular");
+        BOLD = NAME_TO_FONTS.get("HarmonySansSCBold");
+        SEMI_BOLD = NAME_TO_FONTS.get("HarmonySansSCBold");
 
         IM_FONT_SEMI_BOLD_20 = loadImFont("/assets/base/fonts/NotoSans-SemiBold.ttf", 20);
         IM_FONT_SEMI_BOLD_30 = loadImFont("/assets/base/fonts/NotoSans-SemiBold.ttf", 30);

@@ -15,3 +15,7 @@ public class Main {
         Launcher.launch(screen, false);
     }
 }
+
+// Walker's TODO:
+// Fix Fonts in Chinese & other
+// Skip the intro Animation

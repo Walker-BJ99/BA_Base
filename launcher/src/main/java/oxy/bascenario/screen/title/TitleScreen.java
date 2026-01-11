@@ -30,6 +30,8 @@ import static oxy.bascenario.utils.ThinGLUtils.GLOBAL_RENDER_STACK;
 public class TitleScreen extends ExtendableScreen {
     public static final TitleScreen INSTANCE = new TitleScreen();
 
+    private static final String TitleText = "Scenario Engine/场景引擎";
+
     private OrthographicCamera camera;
     private PolygonSpriteBatch batch;
     private SkeletonRenderer renderer;
@@ -72,14 +74,15 @@ public class TitleScreen extends ExtendableScreen {
         float logoWidth = 3385 / 5F, logoHeight = 1218 / 5F;
         float logoX = 1920 - logoWidth - 50, logoY = 19.98f;
 
-        float textHeightY = TextUtils.getVisualHeight(31.95f, TextRun.fromString(FontUtils.SEMI_BOLD, "Scenario Engine").shape());
+        float textHeightY = TextUtils.getVisualHeight(31.95f, TextRun.fromString(FontUtils.SEMI_BOLD, TitleText).shape());
 
         float posY = logoY + logoHeight + textHeightY + 0.04629629629F * 1080;
         this.buttons.clear();
-        this.buttons.add(new TitleScreenButton("Scenario List", logoX, posY, logoWidth, 0.08F * 1080, () -> Launcher.WINDOW.setScreen(new ScenarioListScreen())));
+        this.buttons.add(new TitleScreenButton("Scenario List/场景列表", logoX, posY, logoWidth, 0.08F * 1080, () -> Launcher.WINDOW.setScreen(new ScenarioListScreen())));
         posY += 0.08F * 1080 + 0.04629629629F * 1080;
-        this.buttons.add(new TitleScreenButton("Settings", logoX, posY, logoWidth, 0.08F * 1080, () -> {
-        }));
+        this.buttons.add(new TitleScreenButton("Settings/设置(WIP)", logoX, posY, logoWidth, 0.08F * 1080, () -> {}));
+        posY += 0.08F * 1080 + 0.04629629629F * 1080;
+        this.buttons.add(new TitleScreenButton("Exit/退出", logoX, posY, logoWidth, 0.08F * 1080, () -> System.exit(0)));
 //        posY += 0.08F * 1080 + 0.04629629629F * 1080;
 //        this.buttons.add(new TitleScreenButton("Settings", logoX, posY, logoWidth, 0.08F * 1080, () -> {
 //        }));
@@ -137,12 +140,12 @@ public class TitleScreen extends ExtendableScreen {
         float logoX = 1920 - logoWidth - 50, logoY = 19.98f;
         if (titleBounceIn == null) {
             titleBounceIn = AnimationUtils.build(700L, 1925, logoX, EasingFunction.EXPO);
-            buttonsBounceIn = AnimationUtils.build(700L, logoWidth + 55, 0, EasingFunction.CIRC);
+            buttonsBounceIn = AnimationUtils.build(700L, logoWidth + 55 /*+ 55*/, 0, EasingFunction.CIRC);
         }
         logoX = titleBounceIn.getValue();
 
         ThinGL.renderer2D().texture(GLOBAL_RENDER_STACK, logo, logoX, logoY, logoWidth, logoHeight);
-        TextUtils.textRun(31.95f, TextRun.fromString(FontUtils.SEMI_BOLD, "Scenario Engine"), logoX + logoWidth / 2, logoY + logoHeight);
+        TextUtils.textRun(31.95f, TextRun.fromString(FontUtils.SEMI_BOLD, TitleText), logoX + logoWidth / 2, logoY + logoHeight);
     }
 
     private void updateSkeleton(Skeleton skeleton) {
