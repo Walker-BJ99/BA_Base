@@ -13,54 +13,74 @@ import net.raphimc.thingl.text.shaping.ShapedTextLine;
 import net.raphimc.thingl.text.shaping.ShapedTextRun;
 import oxy.bascenario.Base;
 import oxy.bascenario.api.Scenario;
-import oxy.bascenario.api.render.elements.text.FontType;
+import oxy.bascenario.api.render.elements.text.font.FontStyle;
 import oxy.bascenario.api.render.elements.text.TextSegment;
+import oxy.bascenario.api.render.elements.text.font.FontType;
 import oxy.bascenario.api.utils.FileInfo;
 
 import static oxy.bascenario.utils.ThinGLUtils.GLOBAL_RENDER_STACK;
 
 public class FontUtils {
-    public static Font DEFAULT, BOLD, SEMI_BOLD;
+    public static Font DEFAULT, SEMI_BOLD;
     private static final Map<String, Font> NAME_TO_FONTS = new HashMap<>();
 
-    public static ImFont IM_FONT_SEMI_BOLD_20, IM_FONT_SEMI_BOLD_30, IM_FONT_REGULAR_35;
+    public static ImFont IM_FONT_SEMI_BOLD_20, IM_FONT_SEMI_BOLD_30, IM_FONT_REGULAR_35, CHILLGOTHIC_17;
+
+    public static Font font(FontStyle style, FontType type) {
+        return NAME_TO_FONTS.get(type.toName(style));
+    }
 
     public static Font toFont(Scenario scenario, TextSegment segment) {
         Font font;
-        if (segment.font().isPresent()) {
-            font = NAME_TO_FONTS.get(String.valueOf(segment.font().get().hashCode(scenario.getName())));
+        if (segment.font().file() != null) {
+            font = NAME_TO_FONTS.get(String.valueOf(segment.font().file().hashCode(scenario.getName())));
             if (font == null) {
-                font = FontUtils.loadSpecificFont(scenario, segment.font().get());
-                NAME_TO_FONTS.put(String.valueOf(segment.font().get().hashCode(scenario.getName())), font);
+                font = FontUtils.loadSpecificFont(scenario, segment.font().file());
+                NAME_TO_FONTS.put(String.valueOf(segment.font().file().hashCode(scenario.getName())), font);
             }
         } else {
-            font = NAME_TO_FONTS.get(FontType.toName(segment.type()));
+            font = NAME_TO_FONTS.get(segment.font().type().toName(segment.font().style()));
         }
         return font;
     }
 
     public static void loadFonts() {
-        // Cache these font so I can use them dynamically later.
+        // Cache these font, so I can use them dynamically later.
 
-        // Walker: These fonts seems is not suitable for Chinese (and other).
-        //         I will try My favorite font, HarmonyOS Sans.
-        loadFont("NotoSansRegular", "/assets/base/fonts/NotoSans-Regular.ttf");
-        loadFont("NotoSansSemiBold", "/assets/base/fonts/NotoSans-SemiBold.ttf");
-        loadFont("NotoSansBold", "/assets/base/fonts/NotoSans-Bold.ttf");
+        // Global
+        loadFont("NotoSansRegular", "/assets/base/fonts/global/NotoSans-Regular.ttf");
+        loadFont("NotoSansSemiBold", "/assets/base/fonts/global/NotoSans-SemiBold.ttf");
+        loadFont("NotoSansBold", "/assets/base/fonts/global/NotoSans-Bold.ttf");
 
-        loadFont("HarmonySansSCRegular", "/assets/base/fonts/HarmonyOS_Sans_SC_Regular.ttf");
-        loadFont("HarmonySansSCBold", "/assets/base/fonts/HarmonyOS_Sans_SC_Bold.ttf");
-        loadFont("HarmonySansSCThin", "/assets/base/fonts/HarmonyOS_Sans_SC_Thin.ttf");
+        // Korea
+        loadFont("GyeonggiRegular", "/assets/base/fonts/korea/Gyeonggi_Medium.ttf");
+        loadFont("GyeonggiSemiBold", "/assets/base/fonts/korea/Gyeonggi_Medium.ttf");
+        loadFont("GyeonggiBold", "/assets/base/fonts/korea/Gyeonggi_Bold.ttf");
 
-        ImGui.getIO().setFontDefault(loadImFont("/assets/base/fonts/NotoSans-Regular.ttf", 17));
+        // Japan
+        loadFont("ShinMaruGoRegular", "/assets/base/fonts/japan/U-OTF-ShinMGoUpr-Medium.otf");
+        loadFont("ShinMaruGoSemiBold", "/assets/base/fonts/japan/A-OTF Shin Maru Go Pro DB.otf");
+        loadFont("ShinMaruGoBold", "/assets/base/fonts/japan/A-OTF Shin Maru Go Pro DB.otf");
 
-        DEFAULT = NAME_TO_FONTS.get("HarmonySansSCRegular");
-        BOLD = NAME_TO_FONTS.get("HarmonySansSCBold");
-        SEMI_BOLD = NAME_TO_FONTS.get("HarmonySansSCBold");
+        // Simplified Chinese
+        loadFont("ChillRoundRegular", "/assets/base/fonts/chinese/simplified/ChillRoundGothic_Regular.otf");
+        loadFont("ChillRoundSemiBold", "/assets/base/fonts/chinese/simplified/ChillRoundGothic_Medium.otf");
+        loadFont("ChillRoundBold", "/assets/base/fonts/chinese/simplified/ChillRoundGothic_Bold.otf");
 
-        IM_FONT_SEMI_BOLD_20 = loadImFont("/assets/base/fonts/NotoSans-SemiBold.ttf", 20);
-        IM_FONT_SEMI_BOLD_30 = loadImFont("/assets/base/fonts/NotoSans-SemiBold.ttf", 30);
-        IM_FONT_REGULAR_35 = loadImFont("/assets/base/fonts/NotoSans-Regular.ttf", 35);
+        // Traditional Chinese
+        loadFont("NotoSansTCRegular", "/assets/base/fonts/chinese/traditional/NotoSansTC-Regular.ttf");
+        loadFont("NotoSansTCSemiBold", "/assets/base/fonts/chinese/traditional/NotoSansTC-SemiBold.ttf");
+        loadFont("NotoSansTCBold", "/assets/base/fonts/chinese/traditional/NotoSansTC-Bold.ttf");
+
+        ImGui.getIO().setFontDefault(loadImFont("/assets/base/fonts/global/NotoSans-Regular.ttf", 17, false));
+
+        DEFAULT = NAME_TO_FONTS.get("NotoSansRegular");
+        SEMI_BOLD = NAME_TO_FONTS.get("NotoSansSemiBold");
+
+        IM_FONT_SEMI_BOLD_20 = loadImFont("/assets/base/fonts/global/NotoSans-SemiBold.ttf", 20, false);
+        IM_FONT_SEMI_BOLD_30 = loadImFont("/assets/base/fonts/global/NotoSans-SemiBold.ttf", 30, false);
+        IM_FONT_REGULAR_35 = loadImFont("/assets/base/fonts/global/NotoSans-Regular.ttf", 35, false);
+        CHILLGOTHIC_17 = loadImFont("/assets/base/fonts/chinese/simplified/ChillRoundGothic_Regular.otf", 17, true);
     }
 
     public static Font loadSpecificFont(Scenario scenario, FileInfo font) {
@@ -78,11 +98,16 @@ public class FontUtils {
     }
 
     @SneakyThrows
-    private static ImFont loadImFont(String font, int size) {
+    private static ImFont loadImFont(String font, int size, boolean full) {
         final byte[] fontData = FontUtils.class.getResourceAsStream(font).readAllBytes();
 
         final ImFontGlyphRangesBuilder rangesBuilder = new ImFontGlyphRangesBuilder();
         rangesBuilder.addRanges(ImGui.getIO().getFonts().getGlyphRangesDefault());
+        if (full) {
+            rangesBuilder.addRanges(ImGui.getIO().getFonts().getGlyphRangesJapanese());
+            rangesBuilder.addRanges(ImGui.getIO().getFonts().getGlyphRangesChineseFull());
+            rangesBuilder.addRanges(ImGui.getIO().getFonts().getGlyphRangesKorean());
+        }
 
         final ImGuiIO data = ImGui.getIO();
         return data.getFonts().addFontFromMemoryTTF(fontData, size, new ImFontConfig(), rangesBuilder.buildRanges());
