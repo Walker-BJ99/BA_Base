@@ -113,7 +113,7 @@ public class ImGuiUtils {
     }
 
     public static String inputText(String name, String value) {
-        ImGui.pushFont(FontUtils.CHILLGOTHIC_17);
+        ImGui.pushFont(FontUtils.IM_CONTROL_DEFAULT);
         final ImString imString = new ImString(value);
         ImGui.inputText(name + "##" + COUNTER++, imString, ImGuiInputTextFlags.NoHorizontalScroll | ImGuiInputTextFlags.CallbackResize);
         ImGui.popFont();
@@ -121,7 +121,7 @@ public class ImGuiUtils {
     }
 
     public static String inputMultiLineText(String name, String value) {
-        ImGui.pushFont(FontUtils.CHILLGOTHIC_17);
+        ImGui.pushFont(FontUtils.IM_CONTROL_DEFAULT);
         final ImString imString = new ImString(value);
         ImGui.inputTextMultiline(name + "##" + COUNTER++, imString, ImGuiInputTextFlags.CallbackResize);
         ImGui.popFont();
