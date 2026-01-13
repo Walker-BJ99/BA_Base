@@ -159,7 +159,14 @@ public class FontUtils {
         if (full) {
             rangesBuilder.addRanges(ImGui.getIO().getFonts().getGlyphRangesJapanese());
             rangesBuilder.addRanges(ImGui.getIO().getFonts().getGlyphRangesChineseFull());
+            rangesBuilder.addRanges(ImGui.getIO().getFonts().getGlyphRangesChineseSimplifiedCommon());
             rangesBuilder.addRanges(ImGui.getIO().getFonts().getGlyphRangesKorean());
+
+            // Code from upstream: Thanks ImGui :D, memory goin to be nice! and well imgui-java still on 1.90.0 so no dynamic render.
+            // Walker: Imgui's behavior is too strange.
+            for (char c = '\u4e00'; c <= '\u9fff'; c++) {
+                rangesBuilder.addChar(c);
+            }
         }
         final ImGuiIO data = ImGui.getIO();
         return data.getFonts().addFontFromMemoryTTF(fontData, size, new ImFontConfig(), rangesBuilder.buildRanges());
