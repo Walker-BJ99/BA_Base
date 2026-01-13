@@ -22,7 +22,9 @@ public class MultiLanguageTest {
                 Dialogue.builder().add("素早い茶色キツネが怠けた犬を飛び越えました", FontType.ShinMaruGo).build()));
 
         scenario.add(true, 0, new StartDialogueEvent(FontType.ChillRoundGothic, 0, "加代子", "问题解决者 68", true,
-                Dialogue.builder().add("敏捷的棕色狐狸跳过懒惰的狗", FontType.ChillRoundGothic).build()));
+                Dialogue.builder().add("敏捷的棕色狐狸跳过懒惰的狗,我能吞下玻璃而不伤身体", FontType.ChillRoundGothic).build()));
+        scenario.add(true, 0, new StartDialogueEvent(FontType.HarmonyOSSansSC, 0, "加代子", "问题解决者 68", true,
+                Dialogue.builder().add("敏捷的棕色狐狸跳过懒惰的狗,我能吞下玻璃而不伤身体", FontType.HarmonyOSSansSC).build()));
 
         scenario.add(true, 0, new StartDialogueEvent(FontType.NotoSansTC, 0, "加代子", "問題解決者 68", true,
                 Dialogue.builder().add("敏捷的棕色狐狸跳過了懶惰的狗", FontType.NotoSansTC).build()));

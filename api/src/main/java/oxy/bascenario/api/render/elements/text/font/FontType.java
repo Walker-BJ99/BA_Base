@@ -8,7 +8,8 @@ public enum FontType {
     Gyeonggi("Gyeonggi (KR)", "Gyeonggi"),
     ShinMaruGo("Shin Maru Go (JP)", "ShinMaruGo"),
     NotoSansTC("Noto Sans TC (Traditional CN)", "NotoSansTC"),
-    ChillRoundGothic("Chill Round Gothic (Simplified CN)", "ChillRound");
+    ChillRoundGothic("Chill Round Gothic (Simplified CN)", "ChillRound"),
+    HarmonyOSSansSC("HarmonyOS Sans SC (Simplified CN)", "HarmonyOSSansSC");
 
     private final String name, asset;
 

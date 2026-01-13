@@ -24,7 +24,7 @@ public class FontUtils {
     public static Font DEFAULT, SEMI_BOLD;
     private static final Map<String, Font> NAME_TO_FONTS = new HashMap<>();
 
-    public static ImFont IM_FONT_SEMI_BOLD_20, IM_FONT_SEMI_BOLD_30, IM_FONT_REGULAR_35, CHILLGOTHIC_17;
+    public static ImFont IM_FONT_SEMI_BOLD_20, IM_FONT_SEMI_BOLD_30, IM_FONT_REGULAR_35, CHILLGOTHIC_17, IM_CONTROL_DEFAULT;
 
     public static Font font(FontStyle style, FontType type) {
         return NAME_TO_FONTS.get(type.toName(style));
@@ -46,40 +46,91 @@ public class FontUtils {
 
     public static void loadFonts() {
         // Cache these font, so I can use them dynamically later.
+        // Walker's TODO: Optimize these load codes.
 
         // Global
         loadFont("NotoSansRegular", "/assets/base/fonts/global/NotoSans-Regular.ttf");
         loadFont("NotoSansSemiBold", "/assets/base/fonts/global/NotoSans-SemiBold.ttf");
         loadFont("NotoSansBold", "/assets/base/fonts/global/NotoSans-Bold.ttf");
-
         // Korea
         loadFont("GyeonggiRegular", "/assets/base/fonts/korea/Gyeonggi_Medium.ttf");
         loadFont("GyeonggiSemiBold", "/assets/base/fonts/korea/Gyeonggi_Medium.ttf");
         loadFont("GyeonggiBold", "/assets/base/fonts/korea/Gyeonggi_Bold.ttf");
-
         // Japan
         loadFont("ShinMaruGoRegular", "/assets/base/fonts/japan/U-OTF-ShinMGoUpr-Medium.otf");
         loadFont("ShinMaruGoSemiBold", "/assets/base/fonts/japan/A-OTF Shin Maru Go Pro DB.otf");
         loadFont("ShinMaruGoBold", "/assets/base/fonts/japan/A-OTF Shin Maru Go Pro DB.otf");
-
         // Simplified Chinese
         loadFont("ChillRoundRegular", "/assets/base/fonts/chinese/simplified/ChillRoundGothic_Regular.otf");
         loadFont("ChillRoundSemiBold", "/assets/base/fonts/chinese/simplified/ChillRoundGothic_Medium.otf");
         loadFont("ChillRoundBold", "/assets/base/fonts/chinese/simplified/ChillRoundGothic_Bold.otf");
-
+        loadFont("HarmonyOSSansSCRegular", "/assets/base/fonts/chinese/simplified/HarmonyOS_Sans_SC_Regular.ttf");
+        loadFont("HarmonyOSSansSCSemiBold", "/assets/base/fonts/chinese/simplified/HarmonyOS_Sans_SC_Medium.ttf");
+        loadFont("HarmonyOSSansSCBold", "/assets/base/fonts/chinese/simplified/HarmonyOS_Sans_SC_Bold.ttf");
         // Traditional Chinese
         loadFont("NotoSansTCRegular", "/assets/base/fonts/chinese/traditional/NotoSansTC-Regular.ttf");
         loadFont("NotoSansTCSemiBold", "/assets/base/fonts/chinese/traditional/NotoSansTC-SemiBold.ttf");
         loadFont("NotoSansTCBold", "/assets/base/fonts/chinese/traditional/NotoSansTC-Bold.ttf");
 
-        ImGui.getIO().setFontDefault(loadImFont("/assets/base/fonts/global/NotoSans-Regular.ttf", 17, false));
+        Locale locale = Locale.getDefault(); // Walker: I can't find out a better way to load these Fonts.
+        System.out.printf("%s\n", locale.getCountry());
+        switch (locale.getCountry()) {
+            case "KR":
+                ImGui.getIO().setFontDefault(loadImFont("/assets/base/fonts/korea/Gyeonggi_Regular.ttf", 17, true));
+                DEFAULT = NAME_TO_FONTS.get("GyeonggiRegular");
+                SEMI_BOLD = NAME_TO_FONTS.get("GyeonggiSemiBold");
+                IM_FONT_SEMI_BOLD_20 = loadImFont("/assets/base/fonts/korea/Gyeonggi_Medium.ttf", 20, true);
+                IM_FONT_SEMI_BOLD_30 = loadImFont("/assets/base/fonts/korea/Gyeonggi_Medium.ttf", 30, true);
+                IM_FONT_REGULAR_35 = loadImFont("/assets/base/fonts/korea/Gyeonggi_Regular.ttf", 35, true);
+                IM_CONTROL_DEFAULT = loadImFont("/assets/base/fonts/korea/Gyeonggi_Regular.ttf", 17, true);
+                break;
+            case "JP":
+                ImGui.getIO().setFontDefault(loadImFont("/assets/base/fonts/japan/U-OTF-ShinMGoUpr-Medium.otf", 17, true));
+                DEFAULT = NAME_TO_FONTS.get("ShinMaruGoRegular");
+                SEMI_BOLD = NAME_TO_FONTS.get("ShinMaruGoSemiBold");
+                IM_FONT_SEMI_BOLD_20 = loadImFont("/assets/base/fonts/japan/A-OTF Shin Maru Go Pro DB.otf", 20, true);
+                IM_FONT_SEMI_BOLD_30 = loadImFont("/assets/base/fonts/japan/A-OTF Shin Maru Go Pro DB.otf", 30, true);
+                IM_FONT_REGULAR_35 = loadImFont("/assets/base/fonts/japan/U-OTF-ShinMGoUpr-Medium.otf", 35, true);
+                IM_CONTROL_DEFAULT = loadImFont("/assets/base/fonts/japan/U-OTF-ShinMGoUpr-Medium.otf", 17, true);
+                break;
+            case "CN":
+                ImGui.getIO().setFontDefault(loadImFont("/assets/base/fonts/chinese/simplified/ChillRoundGothic_Regular.otf", 17, true));
+                DEFAULT = NAME_TO_FONTS.get("ChillRoundRegular");
+                SEMI_BOLD = NAME_TO_FONTS.get("ChillRoundSemiBold");
+                IM_FONT_SEMI_BOLD_20 = loadImFont("/assets/base/fonts/chinese/simplified/ChillRoundGothic_Medium.otf", 20, true);
+                IM_FONT_SEMI_BOLD_30 = loadImFont("/assets/base/fonts/chinese/simplified/ChillRoundGothic_Medium.otf", 30, true);
+                IM_FONT_REGULAR_35 = loadImFont("/assets/base/fonts/chinese/simplified/ChillRoundGothic_Regular.otf", 35, true);
+                IM_CONTROL_DEFAULT = loadImFont("/assets/base/fonts/chinese/simplified/ChillRoundGothic_Regular.otf", 17, true);
+                break;
+            case "TW":
+                ImGui.getIO().setFontDefault(loadImFont("/assets/base/fonts/chinese/traditional/NotoSansTC-Regular.ttf", 17, true));
+                DEFAULT = NAME_TO_FONTS.get("NotoSansTCRegular");
+                SEMI_BOLD = NAME_TO_FONTS.get("NotoSansTCSemiBold");
+                IM_FONT_SEMI_BOLD_20 = loadImFont("/assets/base/fonts/chinese/traditional/NotoSansTC-SemiBold.ttf", 20, true);
+                IM_FONT_SEMI_BOLD_30 = loadImFont("/assets/base/fonts/chinese/traditional/NotoSansTC-SemiBold.ttf", 30, true);
+                IM_FONT_REGULAR_35 = loadImFont("/assets/base/fonts/chinese/traditional/NotoSansTC-Regular.ttf", 35, true);
+                IM_CONTROL_DEFAULT = loadImFont("/assets/base/fonts/chinese/traditional/NotoSansTC-Regular.ttf", 17, true);
+                break;
+            case "US":
+            default:
+                ImGui.getIO().setFontDefault(loadImFont("/assets/base/fonts/global/NotoSans-Regular.ttf", 17, false));
+                DEFAULT = NAME_TO_FONTS.get("NotoSansRegular");
+                SEMI_BOLD = NAME_TO_FONTS.get("NotoSansSemiBold");
+                IM_FONT_SEMI_BOLD_20 = loadImFont("/assets/base/fonts/global/NotoSans-SemiBold.ttf", 20, false);
+                IM_FONT_SEMI_BOLD_30 = loadImFont("/assets/base/fonts/global/NotoSans-SemiBold.ttf", 30, false);
+                IM_FONT_REGULAR_35 = loadImFont("/assets/base/fonts/global/NotoSans-Regular.ttf", 35, false);
+                IM_CONTROL_DEFAULT = loadImFont("/assets/base/fonts/global/NotoSans-Regular.ttf", 17, true);
+                break;
+        }
 
-        DEFAULT = NAME_TO_FONTS.get("NotoSansRegular");
-        SEMI_BOLD = NAME_TO_FONTS.get("NotoSansSemiBold");
-
-        IM_FONT_SEMI_BOLD_20 = loadImFont("/assets/base/fonts/global/NotoSans-SemiBold.ttf", 20, false);
-        IM_FONT_SEMI_BOLD_30 = loadImFont("/assets/base/fonts/global/NotoSans-SemiBold.ttf", 30, false);
-        IM_FONT_REGULAR_35 = loadImFont("/assets/base/fonts/global/NotoSans-Regular.ttf", 35, false);
+//        ImGui.getIO().setFontDefault(loadImFont("/assets/base/fonts/global/NotoSans-Regular.ttf", 17, false));
+//
+//        DEFAULT = NAME_TO_FONTS.get("NotoSansRegular");
+//        SEMI_BOLD = NAME_TO_FONTS.get("NotoSansSemiBold");
+//
+//        IM_FONT_SEMI_BOLD_20 = loadImFont("/assets/base/fonts/global/NotoSans-SemiBold.ttf", 20, false);
+//        IM_FONT_SEMI_BOLD_30 = loadImFont("/assets/base/fonts/global/NotoSans-SemiBold.ttf", 30, false);
+//        IM_FONT_REGULAR_35 = loadImFont("/assets/base/fonts/global/NotoSans-Regular.ttf", 35, false);
         CHILLGOTHIC_17 = loadImFont("/assets/base/fonts/chinese/simplified/ChillRoundGothic_Regular.otf", 17, true);
     }
 
@@ -103,12 +154,19 @@ public class FontUtils {
 
         final ImFontGlyphRangesBuilder rangesBuilder = new ImFontGlyphRangesBuilder();
         rangesBuilder.addRanges(ImGui.getIO().getFonts().getGlyphRangesDefault());
+        // todo: Change the Range, because some fonts' range is only for corresponding Languages.
         if (full) {
             rangesBuilder.addRanges(ImGui.getIO().getFonts().getGlyphRangesJapanese());
             rangesBuilder.addRanges(ImGui.getIO().getFonts().getGlyphRangesChineseFull());
+            rangesBuilder.addRanges(ImGui.getIO().getFonts().getGlyphRangesChineseSimplifiedCommon());
             rangesBuilder.addRanges(ImGui.getIO().getFonts().getGlyphRangesKorean());
-        }
 
+            // Code from upstream: Thanks ImGui :D, memory goin to be nice! and well imgui-java still on 1.90.0 so no dynamic render.
+            // Walker: Imgui's behavior is too strange.
+            for (char c = '\u4e00'; c <= '\u9fff'; c++) {
+                rangesBuilder.addChar(c);
+            }
+        }
         final ImGuiIO data = ImGui.getIO();
         return data.getFonts().addFontFromMemoryTTF(fontData, size, new ImFontConfig(), rangesBuilder.buildRanges());
     }

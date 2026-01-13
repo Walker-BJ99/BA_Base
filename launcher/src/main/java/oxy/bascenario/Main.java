@@ -17,4 +17,5 @@ public class Main {
 
 // Walker's TODO:
 // Fix Fonts in Chinese & other
+// Add a Setting Menu in Launcher
 // Skip the intro Animation
