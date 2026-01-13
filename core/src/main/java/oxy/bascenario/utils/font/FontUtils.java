@@ -52,22 +52,21 @@ public class FontUtils {
         loadFont("NotoSansRegular", "/assets/base/fonts/global/NotoSans-Regular.ttf");
         loadFont("NotoSansSemiBold", "/assets/base/fonts/global/NotoSans-SemiBold.ttf");
         loadFont("NotoSansBold", "/assets/base/fonts/global/NotoSans-Bold.ttf");
-
         // Korea
         loadFont("GyeonggiRegular", "/assets/base/fonts/korea/Gyeonggi_Medium.ttf");
         loadFont("GyeonggiSemiBold", "/assets/base/fonts/korea/Gyeonggi_Medium.ttf");
         loadFont("GyeonggiBold", "/assets/base/fonts/korea/Gyeonggi_Bold.ttf");
-
         // Japan
         loadFont("ShinMaruGoRegular", "/assets/base/fonts/japan/U-OTF-ShinMGoUpr-Medium.otf");
         loadFont("ShinMaruGoSemiBold", "/assets/base/fonts/japan/A-OTF Shin Maru Go Pro DB.otf");
         loadFont("ShinMaruGoBold", "/assets/base/fonts/japan/A-OTF Shin Maru Go Pro DB.otf");
-
         // Simplified Chinese
         loadFont("ChillRoundRegular", "/assets/base/fonts/chinese/simplified/ChillRoundGothic_Regular.otf");
         loadFont("ChillRoundSemiBold", "/assets/base/fonts/chinese/simplified/ChillRoundGothic_Medium.otf");
         loadFont("ChillRoundBold", "/assets/base/fonts/chinese/simplified/ChillRoundGothic_Bold.otf");
-
+        loadFont("HarmonyOSSansSCRegular", "/assets/base/fonts/chinese/simplified/HarmonyOS_Sans_SC_Regular.ttf");
+        loadFont("HarmonyOSSansSCSemiBold", "/assets/base/fonts/chinese/simplified/HarmonyOS_Sans_SC_Medium.ttf");
+        loadFont("HarmonyOSSansSCBold", "/assets/base/fonts/chinese/simplified/HarmonyOS_Sans_SC_Bold.ttf");
         // Traditional Chinese
         loadFont("NotoSansTCRegular", "/assets/base/fonts/chinese/traditional/NotoSansTC-Regular.ttf");
         loadFont("NotoSansTCSemiBold", "/assets/base/fonts/chinese/traditional/NotoSansTC-SemiBold.ttf");
